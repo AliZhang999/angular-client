@@ -1,29 +1,26 @@
 import { Component } from '@angular/core';
 import { Customer } from './domain/customer';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [DataService]
 })
 export class AppComponent {
   title = 'app works';
   customers: Customer[];
   selectedCustomer: Customer;
 
-  constructor () {}
+  constructor (private dataServie: DataService) {}
 
   getCustomers () {
-    return [
-      new Customer(1,'aa','AA',1),
-      new Customer(2,'bb','BB',2),
-      new Customer(3,'cc','CC',3),
-      new Customer(4,'dd','DD',4)
-    ];
+    return this.dataServie.getCustomers().then(customers => this.customers = customers);
   }
 
   ngOnInit () {
-    this.customers = this.getCustomers();
+    this.getCustomers();
   }
 
   onSelect (cus: Customer) {
