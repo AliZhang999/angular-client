@@ -16,7 +16,9 @@ export class AppComponent {
   constructor (private dataServie: DataService) {}
 
   getCustomers () {
-    return this.dataServie.getCustomers().then(customers => this.customers = customers);
+    return this.dataServie.getCustomers().then(customers => {
+      this.customers = customers;
+    });
   }
 
   ngOnInit () {
